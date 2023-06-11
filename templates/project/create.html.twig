@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Project{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('projet') }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('projet') }}
+{% endblock %}
+
+
+{% block body %}
+
+    {{ form_start(projectForm) }}
+    {{ form_row(projectForm.title) }}
+    {{ form_row(projectForm.description) }}
+    <ul class="images"
+        data-index="{{ projectForm.images|length > 0 ? projectForm.images|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(projectForm.images.vars.prototype)|e('html_attr') }}"
+    ></ul>
+
+    <button type="button" class="add_item_link btn btn-success" data-collection-holder-class="images">Add an image</button>
+
+    <button type="submit" class="btn btn-success">Créer nouveau projet</button>
+    {{ form_end(projectForm) }}
+
+{% endblock %}

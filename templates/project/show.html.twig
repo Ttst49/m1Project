@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pages projets{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_project') }}" class="btn btn-warning">Retour</a>
+
+    <div class="projet d-flex flex-column justify-content-center align-items-center border border-dark col-6">
+        <h1>{{ projet.title }}</h1>
+        <p>{{ projet.description }}</p>
+        {% for image in projet.images %}
+
+                <img height="200" width="200" src="{{ vich_uploader_asset(image,"imageFile") }}" >
+
+        {% endfor %}
+        {% for user in projet.m1 %}
+        <h2>{{ user.username }}</h2>
+        {% endfor %}
+
+        {% if app.user is null %}
+
+        <a href="{{ path("app_login") }}" class="btn btn-primary">Connectez-vous pour intéragir avec ce projet</a>
+
+        {% elseif app.user.role.id == 2 and app.user.username not in projet.m1 %}
+            
+            <a href="{{ path('/app_project_addm1',{id:projet.id}) }}" class="btn btn-info">M'ajouter sur ce projet</a>
+            
+        {% elseif app.user.role.id == 1 and app.user.username not in projet.bachelor %}
+
+            <a href="{{ path('app_project_addbachelor',{id:projet.id}) }}" class="btn btn-info">Je suis intéressé par ce projet</a>
+
+
+        {% endif %}
+    </div>
+
+{% endblock %}

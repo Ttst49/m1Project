@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pages projets{% endblock %}
+
+{% block body %}
+
+    <div class="projects row">
+        {% for projet in projets %}
+            <div class="projet border border-dark col-5 m-3 p-3">
+                <h1>{{ projet.title }}</h1>
+                <p>{{ projet.description }}</p>
+                <a href="{{ path('app_project_showproject',{id:projet.id}) }}" class="btn btn-primary">Montrer ce projet</a>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}
